@@ -1,0 +1,49 @@
+/* Breakpoints */
+@breakPoint0:      320px;
+@breakPoint1End:   479px;
+@breakPoint2Start: 480px;
+@breakPoint2End:   639px;
+@breakPoint3Start: 640px;
+@breakPoint3End:   767px;
+@breakPoint4Start: 768px;
+@breakPoint4End:   991px;
+@breakPoint5Start: 992px;
+@breakPoint5End:   1023px;
+@breakPoint6Start: 1024px;
+@breakPoint6End:   1199px;
+@breakPoint7Start: 1200px;
+@breakPoint8: 1280px;
+
+/* Main Media Queries */
+
+@mobile: 					~"screen and (max-width: @{breakPoint1End})";
+@mobile-medium: 			~"screen and (min-width: @{breakPoint2Start}) 	and (max-width: @{breakPoint2End})";
+@mobile-all: 				~"screen and (max-width: @{breakPoint2End})";
+
+@tablet-small: 				~"screen and (min-width: @{breakPoint3Start}) 	and (max-width: @{breakPoint3End})";
+@tablet: 					~"screen and (min-width: @{breakPoint4Start}) 	and (max-width: @{breakPoint4End})";
+@tablet-all: 				~"screen and (min-width: @{breakPoint3Start}) 	and (max-width: @{breakPoint4End})";
+
+@desktop: 					~"screen and (min-width: @{breakPoint5Start})";
+@desktop-not-wide: 			~"screen and (min-width: @{breakPoint5Start})   and (max-width: @{breakPoint6End})";
+@wide: 						~"screen and (min-width: @{breakPoint7Start})";
+
+@not-mobile: 				~"screen and (min-width: @{breakPoint3Start})";
+
+/* Portrait / Landscape */
+
+@mobile-small-portrait: 	~"screen and (max-width: @{breakPoint1End})";
+@mobile-medium-portrait: 	~"screen and (min-width: @{breakPoint2Start}) 	and (max-width: @{breakPoint2End}) 	and (orientation: portrait)";
+@mobile-small-landscape: 	~"screen and (min-width: @{breakPoint2Start}) 	and (max-width: @{breakPoint2End})	and (orientation: landscape)";
+@mobile-medium-landscape: 	~"screen and (min-width: @{breakPoint3Start}) 	and (max-width: @{breakPoint3End}) 	and (orientation: landscape)";
+@mobile-all-landscape: 		~"screen and (min-width: @{breakPoint2Start}) 	and (max-width: @{breakPoint3End}) 	and (orientation: landscape)";
+
+@tablet-small-portrait: 	~"screen and (min-width: @{breakPoint3Start}) 	and (max-width: @{breakPoint3End}) 	and (orientation: portrait)";
+@tablet-medium-portrait: 	~"screen and (min-width: @{breakPoint4Start}) 	and (max-width: @{breakPoint4End}) 	and (orientation: portrait)";
+@tablet-large-portrait: 	~"screen and (min-width: @{breakPoint5Start}) 	and (max-width: @{breakPoint6End}) 	and (orientation: portrait)";
+@tablet-all-portrait: 		~"screen and (min-width: @{breakPoint3Start}) 	and (max-width: @{breakPoint6End}) 	and (orientation: portrait)";
+@tablet-small-landscape: 	~"screen and (min-width: @{breakPoint4Start}) 	and (max-width: @{breakPoint5End}) 	and (orientation: landscape)";
+@tablet-medium-landscape: 	~"screen and (min-width: @{breakPoint5Start}) 	and (max-width: @{breakPoint6End}) 	and (orientation: landscape)";
+@tablet-all-landscape: 		~"screen and (min-width: @{breakPoint4Start}) 	and (max-width: @{breakPoint6End}) 	and (orientation: landscape)";
+
+@desktop-portrait: 			~"screen and (min-width: @{breakPoint7Start})";

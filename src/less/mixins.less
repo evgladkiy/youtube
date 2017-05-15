@@ -1,0 +1,19 @@
+.font(@family: "Roboto") {
+	font-family: @family,  Helvetica, Arial, sans-serif;
+}
+
+.transition(@what: all, @time: 0.2s, @func: ease) {
+	transition: @what @time @func;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.clearfix {
+ &:after, &:before {
+     content: "";
+     display: table;
+     clear: both;
+    }
+}
