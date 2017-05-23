@@ -358,156 +358,6 @@ function createCarouselPaginationInner(lastSlideIndex) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.resizeCarouselHandler = resizeCarouselHandler;
-exports.addSwipeListeners = addSwipeListeners;
-
-var _search = __webpack_require__(2);
-
-var _carouselCalculations = __webpack_require__(1);
-
-var _helpers = __webpack_require__(3);
-
-var _pagination = __webpack_require__(7);
-
-var swipeSetting = {
-    touchStartCoord: {},
-    touchEndCoord: {},
-    startTime: 0,
-    endTime: 0,
-    minXDistance: 50,
-    maxYDistance: 50,
-    maxTime: 1000
-};
-
-function swipeStart(e) {
-    var event = 'changedTouches' in e ? e.changedTouches[0] : e;
-    swipeSetting.startTime = new Date().getTime();
-    swipeSetting.touchStartCoord.x = event.pageX;
-    swipeSetting.touchStartCoord.y = event.pageY;
-}
-
-function swipeMove(e) {
-    e.preventDefault();
-}
-
-function swipeEnd(e) {
-    var event = 'changedTouches' in e ? e.changedTouches[0] : e;
-    swipeSetting.endTime = new Date().getTime();
-    swipeSetting.touchEndCoord.x = event.pageX - swipeSetting.touchStartCoord.x;
-    swipeSetting.touchEndCoord.y = event.pageY - swipeSetting.touchStartCoord.y;
-
-    if (swipeSetting.endTime - swipeSetting.startTime <= swipeSetting.maxTime) {
-        if (Math.abs(swipeSetting.touchEndCoord.x) >= swipeSetting.minXDistance && Math.abs(swipeSetting.touchEndCoord.y) <= swipeSetting.maxYDistance) {
-            var paginationContainer = document.querySelector('.carousel-pagination__container');
-            var paginationItems = paginationContainer.getElementsByTagName('button');
-            var activeItem = document.querySelector('.active');
-            var activeItemIndex = activeItem.innerHTML;
-            var lastIndex = paginationItems[paginationItems.length - 1].innerHTML;
-
-            if (swipeSetting.touchEndCoord.x < 0) {
-                if (activeItemIndex < 4) {
-                    (0, _pagination.paginationHandler)(paginationItems[activeItemIndex], paginationContainer);
-                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 0) {
-                    (0, _pagination.paginationHandler)(paginationItems[3], paginationContainer);
-                }
-            } else if (_carouselCalculations.carouselSetting.currentSlide > 0) {
-                if (activeItemIndex < 4) {
-                    (0, _pagination.paginationHandler)(paginationItems[activeItemIndex - 2], paginationContainer);
-                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 0) {
-                    (0, _pagination.paginationHandler)(paginationItems[1], paginationContainer);
-                }
-            }
-        }
-    }
-}
-
-function resizeCarouselHandler(oldAmoundOfElements) {
-    if (oldAmoundOfElements !== _carouselCalculations.carouselSetting.amountOfElements) {
-        if (_carouselCalculations.carouselSetting.slideQuantity - _carouselCalculations.carouselSetting.currentSlide === _carouselCalculations.carouselSetting.slideBefoneNextRequest) {
-            (0, _search.getNextVideos)(_carouselCalculations.carouselContainer);
-        }
-        var newCurrentSlide = Math.ceil(_carouselCalculations.carouselSetting.firstItemIndex / _carouselCalculations.carouselSetting.amountOfElements - 1);
-
-        _carouselCalculations.carouselSetting.firstItemIndex = newCurrentSlide * _carouselCalculations.carouselSetting.amountOfElements + 1;
-    }
-    (0, _carouselCalculations.carouselChangeCurrentSlide)(0);
-}
-
-function addSwipeListeners() {
-    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mousedown touchstart', swipeStart);
-    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mousemove touchmove', swipeMove);
-    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mouseup touchend', swipeEnd);
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.formChangeKeyWord = formChangeKeyWord;
-exports.addAllInputHandeler = addAllInputHandeler;
-
-var _search = __webpack_require__(2);
-
-var _helpers = __webpack_require__(3);
-
-var searchInput = document.querySelector('input[type=search]');
-var clearInputButton = document.querySelector('.search-container__clear');
-
-function setClearButtonStules(newVisibility, newOpacity) {
-    if (clearInputButton.style.visibility !== newVisibility) {
-        clearInputButton.style.visibility = newVisibility;
-        clearInputButton.style.opacity = newOpacity;
-    }
-}
-
-function showClearButton() {
-    setClearButtonStules('visible', 1);
-}
-
-function hideClearButton() {
-    setClearButtonStules('hidden', 0);
-}
-
-function clearButtonHandler() {
-    if (searchInput.value === '') {
-        hideClearButton();
-    } else showClearButton();
-}
-
-function clearButtonClickHandler() {
-    searchInput.value = '';
-    searchInput.focus();
-    hideClearButton();
-}
-
-function formChangeKeyWord(e) {
-    e.preventDefault();
-    _search.searchSetting.currentpageToken = ' ';
-    _search.searchSetting.q = searchInput.value.trim();
-}
-
-function addAllInputHandeler() {
-    (0, _helpers.addListeners)(searchInput, 'keyup focus', clearButtonHandler);
-    (0, _helpers.addListeners)(searchInput, 'blur', hideClearButton);
-    (0, _helpers.addListeners)(clearInputButton, 'click', clearButtonClickHandler);
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.paginationButtons = undefined;
 exports.changeElementIndex = changeElementIndex;
 exports.pagiantionIntit = pagiantionIntit;
@@ -679,6 +529,158 @@ function resizePaginationHandler(oldAmoundOfElements) {
 }
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.resizeCarouselHandler = resizeCarouselHandler;
+exports.addSwipeListeners = addSwipeListeners;
+
+var _search = __webpack_require__(2);
+
+var _carouselCalculations = __webpack_require__(1);
+
+var _helpers = __webpack_require__(3);
+
+var _pagination = __webpack_require__(5);
+
+var swipeSetting = {
+    touchStartCoord: {},
+    touchEndCoord: {},
+    startTime: 0,
+    endTime: 0,
+    minXDistance: 50,
+    maxYDistance: 50,
+    maxTime: 1000
+};
+
+function swipeStart(e) {
+    var event = 'changedTouches' in e ? e.changedTouches[0] : e;
+    swipeSetting.startTime = new Date().getTime();
+    swipeSetting.touchStartCoord.x = event.pageX;
+    swipeSetting.touchStartCoord.y = event.pageY;
+}
+
+function swipeMove(e) {
+    e.preventDefault();
+}
+
+function swipeEnd(e) {
+    var event = 'changedTouches' in e ? e.changedTouches[0] : e;
+    swipeSetting.endTime = new Date().getTime();
+    swipeSetting.touchEndCoord.x = event.pageX - swipeSetting.touchStartCoord.x;
+    swipeSetting.touchEndCoord.y = event.pageY - swipeSetting.touchStartCoord.y;
+
+    if (swipeSetting.endTime - swipeSetting.startTime <= swipeSetting.maxTime) {
+        if (Math.abs(swipeSetting.touchEndCoord.x) >= swipeSetting.minXDistance && Math.abs(swipeSetting.touchEndCoord.y) <= swipeSetting.maxYDistance) {
+            var paginationContainer = document.querySelector('.carousel-pagination__container');
+            var paginationItems = paginationContainer.getElementsByTagName('button');
+            var activeItem = document.querySelector('.active');
+            var activeItemIndex = activeItem.innerHTML;
+            var lastIndex = paginationItems[paginationItems.length - 1].innerHTML;
+
+            if (swipeSetting.touchEndCoord.x < 0) {
+                if (activeItemIndex < 4) {
+                    (0, _pagination.paginationHandler)(paginationItems[activeItemIndex], paginationContainer);
+                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 1) {
+                    (0, _pagination.paginationHandler)(paginationItems[3], paginationContainer);
+                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex === 1) {
+                    (0, _pagination.paginationHandler)(paginationItems[4], paginationContainer);
+                }
+            } else if (_carouselCalculations.carouselSetting.currentSlide > 0) {
+                if (activeItemIndex < 4) {
+                    (0, _pagination.paginationHandler)(paginationItems[activeItemIndex - 2], paginationContainer);
+                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 0) {
+                    (0, _pagination.paginationHandler)(paginationItems[1], paginationContainer);
+                }
+            }
+        }
+    }
+}
+
+function resizeCarouselHandler(oldAmoundOfElements) {
+    if (oldAmoundOfElements !== _carouselCalculations.carouselSetting.amountOfElements) {
+        if (_carouselCalculations.carouselSetting.slideQuantity - _carouselCalculations.carouselSetting.currentSlide === _carouselCalculations.carouselSetting.slideBefoneNextRequest) {
+            (0, _search.getNextVideos)(_carouselCalculations.carouselContainer);
+        }
+        var newCurrentSlide = Math.ceil(_carouselCalculations.carouselSetting.firstItemIndex / _carouselCalculations.carouselSetting.amountOfElements - 1);
+
+        _carouselCalculations.carouselSetting.firstItemIndex = newCurrentSlide * _carouselCalculations.carouselSetting.amountOfElements + 1;
+    }
+    (0, _carouselCalculations.carouselChangeCurrentSlide)(0);
+}
+
+function addSwipeListeners() {
+    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mousedown touchstart', swipeStart);
+    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mousemove touchmove', swipeMove);
+    (0, _helpers.addListeners)(_carouselCalculations.carouselContainer, 'mouseup touchend', swipeEnd);
+}
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.formChangeKeyWord = formChangeKeyWord;
+exports.addAllInputHandeler = addAllInputHandeler;
+
+var _search = __webpack_require__(2);
+
+var _helpers = __webpack_require__(3);
+
+var searchInput = document.querySelector('input[type=search]');
+var clearInputButton = document.querySelector('.search-container__clear');
+
+function setClearButtonStules(newVisibility, newOpacity) {
+    if (clearInputButton.style.visibility !== newVisibility) {
+        clearInputButton.style.visibility = newVisibility;
+        clearInputButton.style.opacity = newOpacity;
+    }
+}
+
+function showClearButton() {
+    setClearButtonStules('visible', 1);
+}
+
+function hideClearButton() {
+    setClearButtonStules('hidden', 0);
+}
+
+function clearButtonHandler() {
+    if (searchInput.value === '') {
+        hideClearButton();
+    } else showClearButton();
+}
+
+function clearButtonClickHandler() {
+    searchInput.value = '';
+    searchInput.focus();
+    hideClearButton();
+}
+
+function formChangeKeyWord(e) {
+    e.preventDefault();
+    _search.searchSetting.currentpageToken = ' ';
+    _search.searchSetting.q = searchInput.value.trim();
+}
+
+function addAllInputHandeler() {
+    (0, _helpers.addListeners)(searchInput, 'keyup focus', clearButtonHandler);
+    (0, _helpers.addListeners)(searchInput, 'blur', hideClearButton);
+    (0, _helpers.addListeners)(clearInputButton, 'click', clearButtonClickHandler);
+}
+
+/***/ }),
 /* 8 */,
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -686,7 +688,7 @@ function resizePaginationHandler(oldAmoundOfElements) {
 "use strict";
 
 
-var _form = __webpack_require__(6);
+var _form = __webpack_require__(7);
 
 var _search = __webpack_require__(2);
 
@@ -694,9 +696,9 @@ var _carouselCalculations = __webpack_require__(1);
 
 var _render = __webpack_require__(0);
 
-var _pagination = __webpack_require__(7);
+var _pagination = __webpack_require__(5);
 
-var _carouselEvents = __webpack_require__(5);
+var _carouselEvents = __webpack_require__(6);
 
 var _helpers = __webpack_require__(3);
 

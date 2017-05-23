@@ -42,8 +42,10 @@ function swipeEnd(e) {
             if (swipeSetting.touchEndCoord.x < 0) {
                 if (activeItemIndex < 4) {
                     paginationHandler(paginationItems[activeItemIndex], paginationContainer);
-                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 0) {
+                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex > 1) {
                     paginationHandler(paginationItems[3], paginationContainer);
+                } else if (activeItemIndex >= 4 && lastIndex - activeItemIndex === 1) {
+                    paginationHandler(paginationItems[4], paginationContainer);
                 }
             } else if (carouselSetting.currentSlide > 0) {
                 if (activeItemIndex < 4) {
